@@ -1,0 +1,6 @@
+package com.test.sample.dto;
+
+public class MemberDto {
+
+	
+}

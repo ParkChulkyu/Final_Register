@@ -1,0 +1,8 @@
+package com.test.sample.biz;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class MemberBizImpl implements MemberBiz {
+
+}

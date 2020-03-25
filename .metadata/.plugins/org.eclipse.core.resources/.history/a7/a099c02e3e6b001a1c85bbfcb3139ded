@@ -1,0 +1,22 @@
+package com.test.sample;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class MemberJoinController {
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@RequestMapping(value="joinPost", method=RequestMethod.POST)
+	public String joinPost(@ModelAttribute("uVO") MemberDto dto) throws Exception {
+		logger.info("currnent join member: " + uVO.toString());
+		userService.create(uVO);
+		
+		return "/user/joinPost";
+	}
+}

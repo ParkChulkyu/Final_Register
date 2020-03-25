@@ -1,0 +1,37 @@
+package com.test.sample.biz;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.test.sample.dto.MemberDto;
+
+@Service
+public class MemberBizImpl implements MemberBiz {
+
+	@Override
+	public List<MemberDto> selectList() {
+		return null;
+	}
+
+	@Override
+	public MemberDto selectOne(int myno) {
+		return null;
+	}
+
+	@Override
+	public int insert(MemberDto dto) {
+		return 0;
+	}
+
+	@Override
+	public int update(MemberDto dto) {
+		return 0;
+	}
+
+	@Override
+	public int delete(int myno) {
+		return 0;
+	}
+
+}

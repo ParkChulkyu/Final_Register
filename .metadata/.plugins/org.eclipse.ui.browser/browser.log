@@ -1,0 +1,15 @@
+
+3월 18, 2020 10:48:19.91 NEW SESSION
+3월 18, 2020 10:48:19.91 [20048:20116:0318/104819.882:ERROR:socket_stream.cc(218)] Closing stream with result -2
+3월 18, 2020 11:14:58.40 [20048:20116:0318/111458.391:ERROR:socket_stream.cc(218)] Closing stream with result -2
+3월 18, 2020 12:06:38.62 [20048:20060:0318/120638.624:ERROR:gcm_channel_status_request.cc(145)] GCM channel request failed.
+3월 18, 2020 13:01:09.95 [20048:20116:0318/130109.943:ERROR:socket_stream.cc(218)] Closing stream with result -2
+3월 18, 2020 13:12:54.76 [20048:20448:0318/131254.765:ERROR:get_updates_processor.cc(246)] PostClientToServerMessage() failed during GetUpdates
+3월 18, 2020 13:12:55.59 [20048:20448:0318/131254.781:ERROR:get_updates_processor.cc(246)] PostClientToServerMessage() failed during GetUpdates
+3월 18, 2020 13:12:57.48 [20048:20116:0318/131257.489:ERROR:connection_factory_impl.cc(420)] Failed to connect to MCS endpoint with error -106
+3월 18, 2020 13:24:55.64 [20048:20116:0318/132455.644:ERROR:socket_stream.cc(218)] Closing stream with result -2
+
+3월 19, 2020 11:41:07.31 NEW SESSION
+3월 19, 2020 11:41:07.31 [12876:10412:0319/114107.292:ERROR:socket_stream.cc(218)] Closing stream with result -2
+3월 19, 2020 12:12:52.19 [12876:9632:0319/121252.192:ERROR:gcm_channel_status_request.cc(145)] GCM channel request failed.
+3월 19, 2020 12:12:53.45 [12876:10412:0319/121253.457:ERROR:connection_factory_impl.cc(420)] Failed to connect to MCS endpoint with error -21

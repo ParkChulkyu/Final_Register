@@ -1,0 +1,19 @@
+package com.test.sample.biz;
+
+import java.util.List;
+
+import com.test.sample.dto.MemberDto;
+
+public interface MemberBiz {
+	public List<MemberDto> selectList();
+
+	public MemberDto selectOne(int myno);
+
+	public int insert(MemberDto dto);
+
+	public int update(MemberDto dto);
+
+	public int delete(int myno);
+	
+	public int idChk(String m_id);
+}

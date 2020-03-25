@@ -1,0 +1,6 @@
+package com.test.sample.biz;
+
+@Service
+public class MemberBizImpl implements MemberBiz {
+
+}

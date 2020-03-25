@@ -1,0 +1,6 @@
+package com.test.sample.dao;
+
+@Repository
+public class MemberDaoImpl implements MemberDao {
+
+}
