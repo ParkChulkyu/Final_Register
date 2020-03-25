@@ -1,6 +1,7 @@
 package com.test.sample.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,8 @@ public class MemberDaoImpl implements MemberDao {
 	public int delete(int myno) {
 		return 0;
 	}
-
+	
+	/*아이디 중복*/
 //	@Override
 //	public int selectUserID(Map<String, Object> map) {
 //		Map<String, Object> resultMap = (Map<String, Object>) selectOne("user.selectUserID", map);
@@ -69,5 +71,20 @@ public class MemberDaoImpl implements MemberDao {
 //
 //		return 0;
 //	}
+	
+	@Override
+	public void createAuthKey(String m_email, String m_authKey) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("userEmail", m_email);
+		map.put("authKey", m_authKey);
+
+		sqlSession.selectOne(NAMESPACE + "createAuthKey", map);		
+	}
+	
+	@Override
+	public void userAuth(String m_email) {
+		sqlSession.update(NAMESPACE + "userAuth", m_email);
+	}
 
 }

@@ -86,7 +86,8 @@ public class HomeController {
 
 		return "jusoPopup";
 	}
-
+	
+	/*아이디 중복*/
 //	@RequestMapping(value="/checkUserID.do")
 //	public int checkUserID(CommandMap commandMap) {
 //		

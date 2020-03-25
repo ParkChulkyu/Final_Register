@@ -1,0 +1,18 @@
+package com.test.sample.dto;
+
+public class MemberDto {
+
+	private int m_no;
+	private String m_id;
+	private String m_pw;
+	private String m_name;
+	private String m_email;
+	private String m_authkey;
+	private String m_address;
+	private String m_address2;
+	private String m_join;
+	private String m_grade;
+
+	public MemberDto() {}
+
+}

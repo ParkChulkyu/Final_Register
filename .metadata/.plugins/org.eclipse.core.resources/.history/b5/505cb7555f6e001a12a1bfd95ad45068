@@ -1,0 +1,90 @@
+package com.test.sample.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.test.sample.dto.MemberDto;
+
+@Repository
+public class MemberDaoImpl implements MemberDao {
+
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public List<MemberDto> selectList() {
+		List<MemberDto> list = new ArrayList<MemberDto>();
+
+		try {
+			list = sqlSession.selectList(NAMESPACE + "selectList");
+		} catch (Exception e) {
+			System.out.println("[ERROR] : selectList");
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	@Override
+	public MemberDto selectOne(int myno) {
+
+		
+		return null;
+	}
+
+	@Override
+	public int insert(MemberDto dto) {
+		int res = 0;
+		try {
+			System.out.println(dto);
+			res = sqlSession.insert(NAMESPACE + "insert", dto);
+
+			System.out.println("[DaoImpl - res ] : " + res);
+		} catch (Exception e) {
+			System.out.println("[ERROR - DaoImpl] : insert");
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	@Override
+	public int update(MemberDto dto) {
+		return 0;
+	}
+
+	@Override
+	public int delete(int myno) {
+		return 0;
+	}
+	
+	/*아이디 중복*/
+//	@Override
+//	public int selectUserID(Map<String, Object> map) {
+//		Map<String, Object> resultMap = (Map<String, Object>) selectOne("user.selectUserID", map);
+//		int result = Integer.valueOf(String.valueOf(resultMap.get("RESULT")));
+//
+//		return 0;
+//	}
+	
+	@Override
+	public void createAuthKey(String m_email, String authKey) {
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("userEmail", userEmail);
+		map.put("authKey", authKey);
+
+		sqlSession.selectOne(NAMESPACE + "createAuthKey", map);		
+	}
+	
+	@Override
+	public void userAuth(String m_email) {
+		sqlSession.update(NAMESPACE + "userAuth", m_email);
+	}
+
+}

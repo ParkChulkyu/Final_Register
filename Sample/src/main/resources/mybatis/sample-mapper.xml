@@ -8,50 +8,70 @@
 		<result property="m_pw" column="M_PW" />
 		<result property="m_name" column="M_NAME" />
 		<result property="m_email" column="M_EMAIL" />
-		<result property="m_addr" column="M_ADDR" />
-		<result property="m_addr2" column="M_ADDR2" />
+		<result property="m_authkey" column="M_AUTHKEY" />
+		<result property="m_address" column="M_ADDRESS" />
+		<result property="m_address2" column="M_ADDRESS2" />
 		<result property="m_join" column="M_JOIN" />
 		<result property="m_grade" column="M_GRADE" />
 	</resultMap>
 	<select id="selectList" resultMap="memberMap">
-	SELECT M_NO, M_ID, M_PW, M_NAME, M_EMAIL, M_ADDR, M_ADDR2, M_JOIN,
-	M_GRADE
-	FROM MMH_MEMBER
-	ORDER BY M_NO DESC
+		SELECT 
+			M_NO, M_ID, M_PW, M_NAME, M_EMAIL, M_AUTHKEY, M_ADDRESS, M_ADDRESS2, M_JOIN, M_GRADE
+		FROM 
+			MMH_MEMBER
+		ORDER BY M_NO DESC
 	</select>
 
 	<select id="selectOne" resultMap="memberMap" parameterType="int">
-		SELECT M_NO, M_ID, M_PW,M_NAME, M_EMAIL, M_ADDR, M_ADDR2, M_JOIN, M_GRADE
-		FROM MMH_MEMBER
-		WHERE M_NO=#{m_no}
+		SELECT 
+				M_NO, M_ID, M_PW, M_NAME, M_EMAIL, M_AUTHKEY, M_ADDRESS, M_ADDRESS2, M_JOIN, M_GRADE
+		FROM 
+			MMH_MEMBER
+		WHERE 
+			M_NO = #{m_no}
 	</select>
 
 	<insert id="insert" parameterType="memberDto">
-		INSERT INTO MMH_MEMBER 
-		VALUES(M_NOSEQ.NEXTVAL, #{m_id}, #{m_pw}, #{m_name}, #{m_email}, #{m_addr}, #{m_addr2}, 'Y', 'A')
+		INSERT INTO 
+					MMH_MEMBER
+		VALUES(
+				M_NOSEQ.NEXTVAL, #{m_id}, #{m_pw}, #{m_name}, #{m_email}, #{authkey}, #{m_address}, #{m_address2}, 'Y', 'A')
 	</insert>
 
 	<update id="update" parameterType="memberDto">
-		UPDATE MYBOARD
-		SET MYNAME =
-		#{myname}, MYTITLE= #{mytitle}, MYCONTENT= #{mycontent}, MYDATE =
+		UPDATE 
+			MYBOARD
+		SET 
+			MYNAME = #{myname}, MYTITLE= #{mytitle}, MYCONTENT= #{mycontent}, MYDATE =
 		SYSDATE
-		WHERE MYNO = #{myno}
+		WHERE 
+		MYNO = #{myno}
 	</update>
 
 	<delete id="delete" parameterType="int">
-		DELETE MMH_MEMBER
-		WHERE M_NO=#{m_no}
-	</delete>
-	
-	<!-- 아이디 중복 -->
-	<select id="selectUserID" parameterType="HashMap" resultType="HashMap">
-		SELECT 
-			COUNT(M_ID) AS RESULT
-		FROM 
+		DELETE 
 			MMH_MEMBER
 		WHERE
-			M_ID = #{m_id}
+			M_NO=#{m_no}
+	</delete>
+
+
+	<select id="selectUserID" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		COUNT(M_ID) AS RESULT
+		FROM
+		MMH_MEMBER
+		WHERE
+		M_ID = #{m_id}
 	</select>
+
+
+	<insert id="createAuthKey">
+		INSERT INTO MMH_MEMBER VALUES(#{m_email}, #{authKey})
+	</insert>
+
+	<update id="userAuth">
+	<![CDATA[update user set userCertification = 1 where (select count(*) from MMH_MEMBER where M_EMAIL = #{m_email}) > 0]]>
+	</update>
 
 </mapper>
