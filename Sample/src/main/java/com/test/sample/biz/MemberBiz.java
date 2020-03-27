@@ -17,10 +17,8 @@ public interface MemberBiz {
 	public int delete(int myno);
 	
 	/*아이디 중복*/
-//	public int insertUserData(Map<String, Object> map);
+	public MemberDto idCheck(String m_id);
 	
-	/*이메일 인증*/
-	public void create(MemberDto dto);
-	
-	public void userAuth(String m_email);
+
+
 }

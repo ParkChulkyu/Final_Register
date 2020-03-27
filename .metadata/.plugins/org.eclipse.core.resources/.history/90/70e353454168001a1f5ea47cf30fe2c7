@@ -1,5 +1,0 @@
-package com.test.sample.dao;
-
-public class MemberDaoImpl implements MemberDao {
-
-}

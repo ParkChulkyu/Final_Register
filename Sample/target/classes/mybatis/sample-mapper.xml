@@ -8,7 +8,6 @@
 		<result property="m_pw" column="M_PW" />
 		<result property="m_name" column="M_NAME" />
 		<result property="m_email" column="M_EMAIL" />
-		<result property="m_authkey" column="M_AUTHKEY" />
 		<result property="m_address" column="M_ADDRESS" />
 		<result property="m_address2" column="M_ADDRESS2" />
 		<result property="m_join" column="M_JOIN" />
@@ -16,7 +15,7 @@
 	</resultMap>
 	<select id="selectList" resultMap="memberMap">
 		SELECT 
-			M_NO, M_ID, M_PW, M_NAME, M_EMAIL, M_AUTHKEY, M_ADDRESS, M_ADDRESS2, M_JOIN, M_GRADE
+			M_NO, M_ID, M_PW, M_NAME, M_EMAIL, M_ADDRESS, M_ADDRESS2, M_JOIN, M_GRADE
 		FROM 
 			MMH_MEMBER
 		ORDER BY M_NO DESC
@@ -24,7 +23,7 @@
 
 	<select id="selectOne" resultMap="memberMap" parameterType="int">
 		SELECT 
-				M_NO, M_ID, M_PW, M_NAME, M_EMAIL, M_AUTHKEY, M_ADDRESS, M_ADDRESS2, M_JOIN, M_GRADE
+				M_NO, M_ID, M_PW, M_NAME, M_EMAIL, M_ADDRESS, M_ADDRESS2, M_JOIN, M_GRADE
 		FROM 
 			MMH_MEMBER
 		WHERE 
@@ -35,7 +34,7 @@
 		INSERT INTO 
 					MMH_MEMBER
 		VALUES(
-				M_NOSEQ.NEXTVAL, #{m_id}, #{m_pw}, #{m_name}, #{m_email}, #{authkey}, #{m_address}, #{m_address2}, 'Y', 'A')
+				MMH_MEMBER_SEQ.NEXTVAL, #{m_id}, #{m_pw}, #{m_name}, #{m_email}, #{m_address}, #{m_address2}, 'Y', 'A')
 	</insert>
 
 	<update id="update" parameterType="memberDto">
@@ -56,22 +55,12 @@
 	</delete>
 
 
-	<select id="selectUserID" parameterType="HashMap" resultType="HashMap">
-		SELECT
-		COUNT(M_ID) AS RESULT
-		FROM
-		MMH_MEMBER
-		WHERE
-		M_ID = #{m_id}
+	<select id="idCheck" resultMap="memberMap">
+			SELECT M_ID FROM MMH_MEMBER
+			WHERE M_ID = #{m_id}
 	</select>
 
 
-	<insert id="createAuthKey">
-		INSERT INTO MMH_MEMBER VALUES(#{m_email}, #{authKey})
-	</insert>
 
-	<update id="userAuth">
-	<![CDATA[update user set userCertification = 1 where (select count(*) from MMH_MEMBER where M_EMAIL = #{m_email}) > 0]]>
-	</update>
 
 </mapper>

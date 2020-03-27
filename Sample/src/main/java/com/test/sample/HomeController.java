@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.activation.CommandMap;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +34,9 @@ public class HomeController {
 
 	@Autowired
 	private MemberBiz biz;
+	
+	@Autowired
+	public JavaMailSender emailSender;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -58,22 +64,22 @@ public class HomeController {
 
 		return "list";
 	}
-	
+
 	@RequestMapping(value = "/signBoard.do")
 	public String insertBoard() {
 
 		return "signBoard";
 	}
 
-	@RequestMapping(value = "/sign.do", method=RequestMethod.POST)
+	@RequestMapping(value = "/sign.do", method = RequestMethod.POST)
 	public String insert(MemberDto dto) {
 		logger.info("select list");
 
 		int res = biz.insert(dto);
-		
+
 		if (res > 0) {
-			return "redirect:index.jsp";
 			
+			return "redirect:index.jsp";
 		} else {
 			System.out.println("fail to insert");
 			return "redirect:signBoard.do";
@@ -86,14 +92,42 @@ public class HomeController {
 
 		return "jusoPopup";
 	}
-	
-	/*아이디 중복*/
-//	@RequestMapping(value="/checkUserID.do")
-//	public int checkUserID(CommandMap commandMap) {
-//		
-//		int checkResult = biz.selectUserID(commandMap.getMap());
-//		
-//		return checkResult;
-//	}
+
+	/*id 중복체크*/
+	//produces는 ajax가 데이터 넘겨받을때 깨짐 방지
+	@RequestMapping(value = "/idCheck.do")
+	@ResponseBody
+	public String idCheck(String m_id) {
+		System.out.println(m_id);
+		
+		MemberDto result = biz.idCheck(m_id);
+		String res = "";
+		if(result != null) { // 중복
+			res = "false";
+		} else { // 중복 X
+			res = "true";
+		}
+		
+		return res;
+	}
+
+	@RequestMapping(value = "/sendMail.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String sendMail(Model model, String to) {
+		System.out.println(to);
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(to);
+		message.setSubject("MMH Email Verify");
+		int[] ranV = new int[6];
+		String verifyNum = "";
+		for (int i = 0; i < ranV.length; i++) {
+			ranV[i] = (int) (Math.random() * 9);
+			verifyNum += ranV[i] + "";
+		}
+		message.setText("회원가입을 위한 이메일 인증 메일입니다.\n인증번호 : " + verifyNum);
+		emailSender.send(message);
+		model.addAttribute(verifyNum, "verifyNum");
+		return verifyNum;
+	}
 
 }

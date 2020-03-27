@@ -64,27 +64,14 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	
 	/*아이디 중복*/
-//	@Override
-//	public int selectUserID(Map<String, Object> map) {
-//		Map<String, Object> resultMap = (Map<String, Object>) selectOne("user.selectUserID", map);
-//		int result = Integer.valueOf(String.valueOf(resultMap.get("RESULT")));
-//
-//		return 0;
-//	}
-	
 	@Override
-	public void createAuthKey(String m_email, String m_authKey) {
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		map.put("userEmail", m_email);
-		map.put("authKey", m_authKey);
-
-		sqlSession.selectOne(NAMESPACE + "createAuthKey", map);		
+	public MemberDto idCheck(String m_id) {
+		System.out.println("===> Mybatis로 idCheck");
+		MemberDto result = sqlSession.selectOne(NAMESPACE+"idCheck",m_id);
+		System.out.println(result);
+		
+		return result;
 	}
-	
-	@Override
-	public void userAuth(String m_email) {
-		sqlSession.update(NAMESPACE + "userAuth", m_email);
-	}
+
 
 }

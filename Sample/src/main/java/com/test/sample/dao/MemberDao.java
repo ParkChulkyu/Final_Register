@@ -18,11 +18,9 @@ public interface MemberDao {
 	public int update(MemberDto dto);
 
 	public int delete(int myno);
-//  /*아이디 중복*/
-//	public int selectUserID(Map<String, Object> map);
-//
+	/*아이디 중복*/
+	public MemberDto idCheck(String m_id);
+
 	/*이메일 인증*/
-	public void createAuthKey(String userEmail, String authKey);
-	
-	public void userAuth(String userEmail);
+
 }
