@@ -4,7 +4,6 @@ INDEX VERSION 1.131+C:\Users\Park\Documents\SourceTree\Final_Register\.metadata\
 3748893954.index
 2707243720.index
 889341676.index
-1048350443.index
 2221289612.index
 123523701.index
 4212195811.index
